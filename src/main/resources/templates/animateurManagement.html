@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+	layout:decorate="layout">
+	<head>
+		<meta charset="utf-8">
+		<title>Animateur Page</title>
+	</head>
+	<body>
+	<div layout:fragment="c1">
+	
+		<div class="container">
+				<h1>Gestion des Animateurs</h1>
+				<div class="panel panel-primary panelT">
+					<div class="panel-heading" style="background-color: #363333">Listes Animateurs</div>
+						
+						<div class="panel-body">
+							<table class="table">
+							<tr>
+								<th>#ID</th>
+								<th>Date de sortie</th>
+								<th>Description</th>
+								<th>Durée</th>
+								<th>Titre</th>
+								<th>Realisateur</th>
+								<th>Catégorie</th>
+								<th>Operations</th>							
+							</tr>
+							<tr th:each="c:${listAnimateurs}">
+								<td th:text="${c.id}"></td>
+								<td th:text="${c.dateSortie}"></td>
+								<td th:text="${c.decription}"></td>
+								<td th:text="${c.duree}"></td>
+								<td th:text="${c.titre}"></td>
+								<td th:text="${c.realisateur}"></td>
+								<td th:text="${c.categorie.name}"></td>
+								<td>
+									<a onClick="return confirm('Etes vous sûre?')" th:href="@{/deleteAnimateur(id=${c.id}, page=${currentPage}, motCle=${motCle} )}" class="btn btn-danger">Delete</a>
+									
+								</td>
+							</tr>
+							</table>
+							<ul class="nav nav-pills">
+								<li th:class="${currentPage==status.index}?'active':''" th:each="page,status:${pages}">
+								<a th:href="@{/animateurManagement(page=${status.index}, motCle=${motCle} )}" th:text="${status.index}"></a>
+								</li>
+							</ul>	
+						</div>
+				</div>
+				<a th:href="@{/formAnimateur}" class="btn btn-primary">Ajouter Animateur</a>
+				
+			</div>
+	</div>
+		
+		
+		
+	</body>
+</html>	

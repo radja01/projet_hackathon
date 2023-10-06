@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+	layout:decorate="layout">
+	<head>
+		<meta charset="utf-8">
+		<title>Animateur Page</title>
+	</head>
+	<body>
+	<div layout:fragment="c1">
+	
+		<div class="container">
+				<h1>Animateur Manage</h1>
+				<div class="panel panel-primary panelT">
+					<div class="panel-heading" style="background-color: #363333">Listes Animateurs</div>
+						<div class="panel-body">
+							<form th:action="@{/animateurManagement}" method="get">
+								<label>Keyword :</label>
+								<input type="text" name="motCle" th:value="${motCle}">
+								<button type="submit" class="btn btn-primary">Chercher</button>
+							</form>
+						</div>
+						<div class="panel-body">
+							<table class="table">
+								<tr>
+									<th>#ID</th>
+									<th>Titre</th>
+									<th>Description</th>
+									<th>Realisateur</th>
+									<th>Date de sortie</th>
+									<th>Durée</th>
+									
+									<th>Categorie</th>
+									<th>Operations</th>
+
+								</tr>
+								<tr th:each="f:${listAnimateurs}">
+									<td th:text="${f.id}"></td>
+									<td th:text="${f.titre}"></td>
+									<td th:text="${f.decription}"></td>
+									<td th:text="${f.realisateur}"></td>
+									<td th:text="${f.dateSortie}"></td>
+									<td th:text="${f.duree}"></td>
+									
+									<td th:text="${f.categorie.name}"></td>
+								<td>
+									<a onClick="return confirm('Etes vous sûre?')" th:href="@{/deleteAnimateur(id=${f.id}, page=${currentPage}, motCle=${motCle} )}" class="btn btn-danger">Delete</a>
+									
+								</td>
+							</tr>
+							</table>
+							<ul class="nav nav-pills">
+								<li th:class="${currentPage==status.index}?'active':''" th:each="page,status:${pages}">
+								<a th:href="@{/animateurManagement(page=${status.index}, motCle=${motCle} )}" th:text="${status.index}"></a>
+								</li>
+							</ul>	
+
+						</div>
+				</div>
+			</div>
+	</div>
+		
+		
+		
+	</body>
+</html>	
+
+
